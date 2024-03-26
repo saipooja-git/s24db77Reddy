@@ -2,4 +2,15 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+  p Good Morning #{title}
+  button(type="button", class="btn btn-primary" onclick = "result()") I'm a button
+  div(id="resul") Up the amount
+  script.
+    var value = 0;
+    var power = 1;
+    function result(){
+        value++;
+        power *= 2;
+        var res = `2 to the power of ${value} is ${power}`;
+        document.getElementById('resul').innerText = res;
+    }
