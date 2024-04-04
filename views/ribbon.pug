@@ -2,14 +2,14 @@ extends layout
  
 block content
   h1= title
-  - let results = [{Ribbon_type:'Cloth',Ribbon_usedfor:'all',Ribbon_length:100},{Ribbon_type:'sation',Ribbon_usedfor:'occassion',Ribbon_length:200},{Ribbon_type:'metallic',Ribbon_usedfor:'parties',Ribbon_length:900}]
+  - let items  = results
   div(class="container-fluid")
     div(class="row")
-      each item, index in results  
+      each item, index in items  
         div(class="col-sm-2",onclick=`buy(${index})`)
-          p #{item.Ribbon_type}
-          p #{item.Ribbon_usedfor}
-          p #{item.Ribbon_length}
+          p #{item.ribbon_type}
+          p #{item.ribbon_usedfor}
+          p #{item.ribbon_length}
   script.
     function buy(index) {
     alert("You purchased item " + index);}  

@@ -1,9 +1,6 @@
 var express = require('express');
+const ribbon_controlers= require('../controllers/ribbon');
 var router = express.Router();
- 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('ribbon', { title: 'Search Result ribbons' });
-});
- 
+router.get('/', ribbon_controlers.ribbon_view_all_Page );
 module.exports = router;

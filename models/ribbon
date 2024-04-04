@@ -1,0 +1,8 @@
+const mongoose = require("mongoose")
+const ribbonSchema = mongoose.Schema({
+ribbon_type: String,
+ribbon_usedfor: String,
+ribbon_length: Number
+})
+module.exports = mongoose.model("ribbon",
+ribbonSchema)
