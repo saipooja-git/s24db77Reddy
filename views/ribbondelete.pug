@@ -1,0 +1,51 @@
+extends layout
+
+block content
+  h1= title
+  if (toShow == null)
+    h2 No instance to delete
+  else
+    - let ribbonid = toShow._id
+    - let ribbon_type = toShow.ribbon_type
+    - let ribbonusedfor = toShow.ribbon_usedfor
+    - let ribbonlength = toShow.ribbon_length
+    - let actionid = "/resource/ribbon/" + ribbonid
+    script.
+      let actionid = "#{actionid}"
+    div
+      div.row
+        div(class='ribbonAttr mr-3') ribbon ID is:
+        div #{ribbonid}
+      div.row
+        div(class='ribbonAttr mr-3') ribbon Type is:
+        div #{ribbon_type}
+      div.row
+        div(class='ribbonAttr mr-3') ribbon used for is:
+        div #{ribbonusedfor}
+      div.row
+        div(class='ribbonAttr mr-3') ribbon length is:
+        div #{ribbonlength}
+      button(class="btn btn-danger m-2" onclick="deleteOnid()") Delete
+      button(class="btn btn-secondary m-2" onclick="cancel()") Cancel
+    script.
+      function cancel() {
+        // Go back to the home page for the ribbon collection
+        window.location.href='/ribbons'
+      }
+    script.
+      function deleteOnid() {
+        console.log("starting delete")
+        // delete first
+        fetch(actionid, {
+          method: 'DELETE' // Don't need a body for the delete
+        }).then((resp) => {
+          return resp.json(); // or resp.text() or whatever the server sends
+        }).then((body) => {
+          alert("Delete succeeded")
+          window.location.href='/ribbons'
+          // TODO handle body
+        }).catch((error) => {
+          // TODO handle error
+          alert("Delete failed " + error )
+        });
+      }

@@ -103,3 +103,55 @@ ${JSON.stringify(req.body)}`)
 failed`);
     }
 };
+// Handle a show one view with id specified by query
+exports.ribbon_view_one_Page = async function(req, res) {
+    console.log("single view for id " + req.query.id)
+    try{
+    result = await ribbon.findById( req.query.id)
+    res.render('ribbondetail',
+    { title: 'ribbon Detail', toShow: result });
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+    };
+    //Handle building the view for creating a costume.
+    // No body, no in path parameter, no query.
+    // Does not need to be async
+    exports.ribbon_create_Page = function(req, res) {
+    console.log("create view")
+    try{
+    res.render('ribboncreate', { title: 'ribbon Create'});
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+    };
+// Handle building the view for updating a costume.
+// query provides the id
+exports.ribbon_update_Page = async function(req, res) {
+    console.log("update view for item "+req.query.id)
+    try{
+    let result = await ribbon.findById(req.query.id)
+    res.render('ribbonupdate', { title: 'ribbon Update', toShow: result });
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+    };
+// Handle a delete one view with id from query
+    exports.ribbon_delete_Page = async function(req, res) {
+    console.log("Delete view for id " + req.query.id)
+    try{
+    result = await ribbon.findById(req.query.id)
+    res.render('ribbondelete', { title: 'ribbon Delete', toShow:
+    result });
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+    };

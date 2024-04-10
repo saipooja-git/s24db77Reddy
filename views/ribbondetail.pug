@@ -1,0 +1,24 @@
+extends layout
+
+block content
+  h1= title
+  if (toShow == null)
+    h2 No instance to delete
+  else
+  - let ribbonid = toShow._id
+  - let ribbontype = toShow.ribbon_type
+  - let ribbonusedfor = toShow.ribbon_usedfor
+  - let ribbonlength = toShow.ribbon_length
+  div
+    div.row
+      div(class='ribbonAttr mr-3') ribbon ID is:
+      div #{ribbonid}
+    div.row
+      div(class='ribbonAttr mr-3') ribbon Type is:
+      div #{ribbontype}
+    div.row
+      div(class='ribbonAttr mr-3') ribbon used for:
+      div #{ribbonusedfor}
+    div.row
+      div(class='ribbonAttr mr-3') ribbon length is:
+      div #{ribbonlength}

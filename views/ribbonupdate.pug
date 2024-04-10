@@ -1,0 +1,43 @@
+extends layout
+
+block content
+  h1= title
+  if (toShow == null)
+    h2 No instance to delete
+  else
+  - let ribbonid = toShow._id
+  - let ribbon_type = toShow.ribbon_type
+  - let ribbonusedfor = toShow.ribbon_usedfor
+  - let ribbonlength = toShow.ribbon_length
+  div.row(class='mb-2')
+    div.mr-1 ID is
+    div #{ribbonid}
+  - let actionid = "/resource/ribbon/" + ribbonid
+  form(id='ribbonForm', action= actionid, method="PUT")
+    div.form-group
+      label.ribbonAttr(for='ribbon_type') ribbon type
+      input#ribbon_type(type='text', name='ribbon_type', value= ribbon_type )
+    div.form-group
+      label.ribbonAttr(for='ribbon_usedfor') ribbon is used for
+      input#size(type='text', name='ribbon_usedfor', value= ribbonusedfor )
+    div.form-group
+      label.ribbonAttr(for='ribbon_length') ribbon length is
+      input#cost(type='number', name='ribbon_length', value= ribbonlength )
+    input(type="submit")(style="color:white; background-color: pink; font-family:Algerian")
+  script.
+    document.forms['ribbonForm'].addEventListener('submit', (event) => {
+      event.preventDefault();
+      // TODO do something here to show user that form is being submitted
+      fetch(event.target.action, {
+        method: 'PUT',
+        body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+      }).then((resp) => {
+        return resp.json(); // or resp.text() or whatever the server sends
+      }).then((body) => {
+        alert("Update succeeded");
+        // TODO handle body
+      }).catch((error) => {
+        // TODO handle error
+        alert("Update failed " + error);
+      });
+    });

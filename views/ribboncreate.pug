@@ -1,0 +1,32 @@
+extends layout
+
+block content
+  h1= title
+  form(id='ribbonForm', action="/resource/ribbon", method="POST")
+    div.form-group
+      label.ribbonAttr(for='ribbon_type') ribbon type
+      input#ribbon_type(type='text', name='ribbon_type')
+    div.form-group
+      label.ribbonAttr(for='ribbon_usedfor') ribbon used for
+      input#size(type='text', name='ribbon_usedfor')
+    div.form-group
+      label.ribbonAttr(for='ribbon_length') ribbon length is
+      input#cost(type='number', name='ribbon_length')
+    input(type="submit")
+    script.
+      document.forms['ribbonForm'].addEventListener('submit', (event) => {
+        event.preventDefault();
+        // TODO do something here to show user that form is being submitted
+        fetch(event.target.action, {
+          method: 'POST',
+          body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+        }).then((resp) => {
+          return resp.json(); // or resp.text() or whatever the server sends
+        }).then((body) => {
+          alert("Save succeeded");
+          // TODO handle body
+        }).catch((error) => {
+          // TODO handle error
+          alert("Save failed " + error);
+        });
+      });
