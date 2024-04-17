@@ -2,15 +2,23 @@ extends layout
  
 block content
   h1= title
-  - let items  = results
+ 
+  - let items = results;
+  - let desti = `dispatch(\"/ribbon/create\")`
+    button.btn( class="btn-primary", onclick= desti) Create
   div(class="container-fluid")
-    div(class="row")
-      each item, index in items  
-        div(class="col-sm-2",onclick=`buy(${index})`)
-          p #{item.ribbon_type}
-          p #{item.ribbon_usedfor}
-          p #{item.ribbon_length}
+  div(class="row m-1")
+   
+   
+    each item in items
+      - let destination = `dispatch(\"/ribbon/update?id=${item._id}\")`
+      - let destinatio = `dispatch(\"/ribbon/detail?id=${item._id}\")`
+      - let destinati = `dispatch(\"/ribbon/delete?id=${item._id}\")`
+      div(class="row-sm-2", class="m-1") Item #{item.ribbon_type}(#{item.ribbon_usedfor}) is #{item.ribbon_length}
+      button.btn( class="btn-primary ml-1", onclick= destination) Update
+      button.btn( class="btn-primary ml-1", onclick= destinatio) Detail
+      button.btn( class="btn-primary ml-1", onclick= destinati) Delete
+     
   script.
-    function buy(index) {
-    alert("You purchased item " + index);}  
-  
+    function dispatch(path){
+      window.location.href=path}

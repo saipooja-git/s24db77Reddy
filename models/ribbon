@@ -1,8 +1,16 @@
 const mongoose = require("mongoose")
 const ribbonSchema = mongoose.Schema({
 ribbon_type: String,
-ribbon_usedfor: String,
-ribbon_length: Number
+ribbon_usedfor: {
+    type: String,
+    min: 1,
+    max: 24,
+},
+ribbon_length: {
+    type: Number, 
+    min: 1,
+    max: 22,
+}
 })
 module.exports = mongoose.model("ribbon",
 ribbonSchema)
